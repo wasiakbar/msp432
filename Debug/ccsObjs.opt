@@ -1,0 +1,1 @@
+"./essential.obj" "./main.obj" "./msp432_startup_ccs.obj" "./Peripherals/uart.obj" "../msp432p401r.cmd" -l"libc.a" 
