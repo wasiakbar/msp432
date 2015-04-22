@@ -4,21 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Peripherals/uart.c 
+../Peripherals/adc.c 
 
 OBJS += \
-./Peripherals/uart.obj 
+./Peripherals/adc.obj 
 
 C_DEPS += \
-./Peripherals/uart.pp 
+./Peripherals/adc.pp 
 
 C_DEPS__QUOTED += \
-"Peripherals/uart.pp" 
+"Peripherals/adc.pp" 
 
 OBJS__QUOTED += \
-"Peripherals/uart.obj" 
+"Peripherals/adc.obj" 
 
 C_SRCS__QUOTED += \
-"../Peripherals/uart.c" 
+"../Peripherals/adc.c" 
 
 

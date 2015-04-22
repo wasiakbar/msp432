@@ -19,7 +19,7 @@
  * Include user defined libraries
  */
 
-#include "Peripherals/uart.h"
+#include "Peripherals/adc.h"
 
 
 

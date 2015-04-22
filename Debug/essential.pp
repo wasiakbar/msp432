@@ -13,7 +13,7 @@ essential.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cmFun
 essential.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cm4_simd.h
 essential.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/string.h
 essential.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h
-essential.obj: ../Peripherals/uart.h
+essential.obj: ../Peripherals/adc.h
 essential.obj: ../Peripherals/../essential.h
 
 ../essential.c: 
@@ -29,5 +29,5 @@ essential.obj: ../Peripherals/../essential.h
 /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cm4_simd.h: 
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/string.h: 
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h: 
-../Peripherals/uart.h: 
+../Peripherals/adc.h: 
 ../Peripherals/../essential.h: 
