@@ -19,18 +19,17 @@
  * Include user defined libraries
  */
 
+#include "Peripherals/clock.h"
 #include "Peripherals/adc.h"
-
-
+#include "Peripherals/uart.h"
+#include "Peripherals/timer.h"
 
 
 /*
- * Preprocessor defines
+ * Preprocessor definitions
  */
 
 #define DEBUG 1
-
-
 
 
 /*
@@ -38,6 +37,7 @@
  */
 
 char str[8];
+uint32_t temp;
 
 /*
  * Preprocessor directives to make bitwise

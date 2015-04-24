@@ -9,6 +9,9 @@ ORDERED_OBJS += \
 "./main.obj" \
 "./msp432_startup_ccs.obj" \
 "./Peripherals/adc.obj" \
+"./Peripherals/clock.obj" \
+"./Peripherals/timer.obj" \
+"./Peripherals/uart.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -l"libc.a" \
@@ -149,8 +152,8 @@ UltrasonicSensor.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "essential.pp" "main.pp" "msp432_startup_ccs.pp" "Peripherals/adc.pp" 
-	-$(RM) "essential.obj" "main.obj" "msp432_startup_ccs.obj" "Peripherals/adc.obj" 
+	-$(RM) "essential.pp" "main.pp" "msp432_startup_ccs.pp" "Peripherals/adc.pp" "Peripherals/clock.pp" "Peripherals/timer.pp" "Peripherals/uart.pp" 
+	-$(RM) "essential.obj" "main.obj" "msp432_startup_ccs.obj" "Peripherals/adc.obj" "Peripherals/clock.obj" "Peripherals/timer.obj" "Peripherals/uart.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

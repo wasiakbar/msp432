@@ -20,7 +20,7 @@ void initADC(void) {
 	/* Initialize ADC14 */
 	NVIC_ISER0 = 1 << ((INT_ADC14 - 16) & 31);         // Enable ADC interrupt in NVIC module
 
-	ADC14CTL0 = ADC14SHT1_2 | ADC14SHP | ADC14ON;          // Sampling time, S&H=16, ADC14 on
+	ADC14CTL0 = ADC14SSEL__MODCLK + ADC14CONSEQ_0 + ADC14SHT0_0 | ADC14SHP | ADC14ON;          // Sampling time, S&H=16, ADC14 on
 	ADC14CTL1 = ADC14RES_3;                   // Use sampling timer, 14-bit conversion results
 
 	ADC14MCTL0 |= ADC14INCH_14;                // A14 ADC input select; Vref=AVCC
@@ -28,7 +28,10 @@ void initADC(void) {
 
 	SCB_SCR &= ~SCB_SCR_SLEEPONEXIT;           // Wake up on exit from ISR
 
-	 ADC14CTL0 |= ADC14ENC;						//Enable ADC for conversion
+	ADC14CTL0 |= ADC14ENC;						//Enable ADC for conversion
+
+	if (DEBUG)
+		sendStr("\n\n\r ADC Initialisation complete.");
 
 }// End initADC function
 
@@ -46,8 +49,6 @@ inline void startConversion(void) {
  */
 
 void ADC14ISRHandler(void) {
-    if (ADC14MEM0 >= 0x2000)               // ADC12MEM0 = A1 > 0.5AVcc?
-      P1OUT |= BIT0;                      // P1.0 = 1
-    else
-      P1OUT &= ~BIT0;                     // P1.0 = 0
+	temp = ADC14MEM0;               // ADC12MEM0 = A1 > 0.5AVcc?
+	toggle(1,0);
 }

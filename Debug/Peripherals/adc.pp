@@ -14,7 +14,11 @@ Peripherals/adc.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core
 Peripherals/adc.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cm4_simd.h
 Peripherals/adc.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/string.h
 Peripherals/adc.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h
+Peripherals/adc.obj: ../Peripherals/../Peripherals/clock.h
+Peripherals/adc.obj: ../Peripherals/../Peripherals/../essential.h
 Peripherals/adc.obj: ../Peripherals/../Peripherals/adc.h
+Peripherals/adc.obj: ../Peripherals/../Peripherals/uart.h
+Peripherals/adc.obj: ../Peripherals/../Peripherals/timer.h
 
 ../Peripherals/adc.c: 
 ../Peripherals/adc.h: 
@@ -30,4 +34,8 @@ Peripherals/adc.obj: ../Peripherals/../Peripherals/adc.h
 /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cm4_simd.h: 
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/string.h: 
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h: 
+../Peripherals/../Peripherals/clock.h: 
+../Peripherals/../Peripherals/../essential.h: 
 ../Peripherals/../Peripherals/adc.h: 
+../Peripherals/../Peripherals/uart.h: 
+../Peripherals/../Peripherals/timer.h: 
