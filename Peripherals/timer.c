@@ -5,7 +5,7 @@
  *      Author: prachetverma
  */
 
-#include "adc.h"
+#include "timer.h"
 
 /*
  * 	Initialise timer settings
@@ -27,6 +27,7 @@ void initTimer(void) {
  */
 void TimerA0_0IsrHandler(void) {
 	TA0CCTL0 &= ~CCIFG;
+	toggleLED();
 	startConversion();
 
 }

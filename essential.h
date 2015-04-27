@@ -20,16 +20,18 @@
  */
 
 #include "Peripherals/clock.h"
+#include "Peripherals/gpio.h"
 #include "Peripherals/adc.h"
 #include "Peripherals/uart.h"
 #include "Peripherals/timer.h"
+#include "Peripherals/i2c.h"
 
 
 /*
  * Preprocessor definitions
  */
 
-#define DEBUG 1
+#define DEBUG 0
 
 
 /*
@@ -38,6 +40,7 @@
 
 char str[8];
 uint32_t temp;
+
 
 /*
  * Preprocessor directives to make bitwise

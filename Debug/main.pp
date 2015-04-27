@@ -15,9 +15,11 @@ main.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/st
 main.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h
 main.obj: ../Peripherals/clock.h
 main.obj: ../Peripherals/../essential.h
+main.obj: ../Peripherals/gpio.h
 main.obj: ../Peripherals/adc.h
 main.obj: ../Peripherals/uart.h
 main.obj: ../Peripherals/timer.h
+main.obj: ../Peripherals/i2c.h
 
 ../main.c: 
 ../essential.h: 
@@ -34,6 +36,8 @@ main.obj: ../Peripherals/timer.h
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h: 
 ../Peripherals/clock.h: 
 ../Peripherals/../essential.h: 
+../Peripherals/gpio.h: 
 ../Peripherals/adc.h: 
 ../Peripherals/uart.h: 
 ../Peripherals/timer.h: 
+../Peripherals/i2c.h: 

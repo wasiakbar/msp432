@@ -1,7 +1,7 @@
 # FIXED
 
 Peripherals/timer.obj: ../Peripherals/timer.c
-Peripherals/timer.obj: ../Peripherals/adc.h
+Peripherals/timer.obj: ../Peripherals/timer.h
 Peripherals/timer.obj: ../Peripherals/../essential.h
 Peripherals/timer.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/msp.h
 Peripherals/timer.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/msp432p401r.h
@@ -16,12 +16,14 @@ Peripherals/timer.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2
 Peripherals/timer.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h
 Peripherals/timer.obj: ../Peripherals/../Peripherals/clock.h
 Peripherals/timer.obj: ../Peripherals/../Peripherals/../essential.h
+Peripherals/timer.obj: ../Peripherals/../Peripherals/gpio.h
 Peripherals/timer.obj: ../Peripherals/../Peripherals/adc.h
 Peripherals/timer.obj: ../Peripherals/../Peripherals/uart.h
 Peripherals/timer.obj: ../Peripherals/../Peripherals/timer.h
+Peripherals/timer.obj: ../Peripherals/../Peripherals/i2c.h
 
 ../Peripherals/timer.c: 
-../Peripherals/adc.h: 
+../Peripherals/timer.h: 
 ../Peripherals/../essential.h: 
 /home/prachetverma/ti/ccsv6/ccs_base/arm/include/msp.h: 
 /home/prachetverma/ti/ccsv6/ccs_base/arm/include/msp432p401r.h: 
@@ -36,6 +38,8 @@ Peripherals/timer.obj: ../Peripherals/../Peripherals/timer.h
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h: 
 ../Peripherals/../Peripherals/clock.h: 
 ../Peripherals/../Peripherals/../essential.h: 
+../Peripherals/../Peripherals/gpio.h: 
 ../Peripherals/../Peripherals/adc.h: 
 ../Peripherals/../Peripherals/uart.h: 
 ../Peripherals/../Peripherals/timer.h: 
+../Peripherals/../Peripherals/i2c.h: 

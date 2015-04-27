@@ -16,9 +16,11 @@ Peripherals/adc.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2
 Peripherals/adc.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h
 Peripherals/adc.obj: ../Peripherals/../Peripherals/clock.h
 Peripherals/adc.obj: ../Peripherals/../Peripherals/../essential.h
+Peripherals/adc.obj: ../Peripherals/../Peripherals/gpio.h
 Peripherals/adc.obj: ../Peripherals/../Peripherals/adc.h
 Peripherals/adc.obj: ../Peripherals/../Peripherals/uart.h
 Peripherals/adc.obj: ../Peripherals/../Peripherals/timer.h
+Peripherals/adc.obj: ../Peripherals/../Peripherals/i2c.h
 
 ../Peripherals/adc.c: 
 ../Peripherals/adc.h: 
@@ -36,6 +38,8 @@ Peripherals/adc.obj: ../Peripherals/../Peripherals/timer.h
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h: 
 ../Peripherals/../Peripherals/clock.h: 
 ../Peripherals/../Peripherals/../essential.h: 
+../Peripherals/../Peripherals/gpio.h: 
 ../Peripherals/../Peripherals/adc.h: 
 ../Peripherals/../Peripherals/uart.h: 
 ../Peripherals/../Peripherals/timer.h: 
+../Peripherals/../Peripherals/i2c.h: 

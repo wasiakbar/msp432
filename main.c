@@ -10,30 +10,26 @@
 
 int main(void)
 {
-	uint16_t i;
 	WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
 
 	initClock();
-
-	P1OUT &= ~BIT0;                           // Clear LED to start
-	P1DIR |= BIT0;                            // Set P1.0/LED to output
+	initGPIO();
 
 	__enable_interrupt();
-	initUART();
-	initADC();
-	initTimer();
+	//initUART();
+	//initADC();
+	//initTimer();
+	initI2C();
 
-	sendStr("\n\n\r All initialisations complete.");
+	if (DEBUG)
+		sendStr("\n\n\r All initialisations complete.");
 
-	while (1)
-	{
-		for (i = 20000; i > 0; i--);            // Delay
-		//set(1,0);
-		//startConversion();
-		__sleep();
+	setLED();
+	setClmp(2.28);
+	//setCntl(1.2);
+	while(1);
 
-		__no_operation();                       // For debugger
-	}
+	__sleep();
 
 	__no_operation();                       // For debugger
 }
