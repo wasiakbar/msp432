@@ -13,10 +13,15 @@
 //Initialisation
 void initGPIO(void);
 
+//Usage
+void ultraTX(uint8_t);
+
 /*
  * Hardcoding set and unset for
  * GPIO pins
  */
+
+//For sensor board
 #define setLED() P1OUT |= BIT0
 #define setG1() P4OUT |= BIT0
 #define setG2() P4OUT |= BIT1
@@ -31,5 +36,18 @@ void initGPIO(void);
 
 #define toggleLED() P1OUT ^= BIT0
 #define toggleG1() P4OUT ^= BIT0
+
+//For power board
+#define enablePower() P5OUT &= ~BIT2
+#define disablePower() P5OUT |= BIT2
+
+#define disableBoost() P5OUT &= ~BIT4
+#define enableBoost() P5OUT |= BIT4
+
+#define disableBuck() P5OUT &= ~BIT6
+#define enableBuck() P5OUT |= BIT6
+
+#define enableLDO() P5OUT &= ~BIT7
+#define disableLDO() P5OUT |= BIT7
 
 #endif /* PERIPHERALS_GPIO_H_ */

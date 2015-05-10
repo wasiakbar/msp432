@@ -8,27 +8,72 @@
 
 #include "essential.h"
 
+#define ADC 1
+#define TX 0
+#define MALLI 0
+
 int main(void)
 {
+	int i,j;
+	float x=0,y=1;
 	WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
 
-	initClock();
-	initGPIO();
+	if (ADC) {
+		initClock();
+		initGPIO();
+		enablePower();
 
-	__enable_interrupt();
-	//initUART();
-	//initADC();
-	//initTimer();
-	initI2C();
+		__enable_interrupt();
+		initUART();
+		initADC();
+		initTimer();
+		initI2C();
+
+		sendStr("\n\n\r All initialisations complete.");
+	}
+
+
+	if (TX) {
+		initGPIO();
+		enablePower();
+
+		__enable_interrupt();
+		initI2C();
+		unsetG1();
+		unsetG2();
+		setOE();
+
+		setG1();
+		setG2();
+		setClmp(2);
+		setCntl(2);
+
+		while(1) {
+			ultraTX(30);
+			__delay_cycles(30000);
+		}
+	}
+
+	if (MALLI) {
+		initGPIO();
+		enablePower();
+
+		__enable_interrupt();
+		initI2C();
+
+		setBoost(11);
+		setBuck(5);
+		setLDO(4.5);
+		enableBoost();
+		enableBuck();
+		enableLDO();
+
+		setLED();
+	}
 
 	if (DEBUG)
 		sendStr("\n\n\r All initialisations complete.");
-
-	setLED();
-	setClmp(2.28);
-	//setCntl(1.2);
 	while(1);
-
 	__sleep();
 
 	__no_operation();                       // For debugger

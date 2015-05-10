@@ -16,5 +16,8 @@ void initI2C(void);
 //Program pots for clmp and cntl
 void setClmp(float);
 void setCntl(float);
+void setBoost(float);
+void setBuck(float);
+void setLDO(float);
 
 #endif /* PERIPHERALS_I2C_H_ */
