@@ -21,7 +21,7 @@
 void initClock(void) {
 	CSKEY = 0x695A;                        // Unlock CS module for register access
 	CSCTL0 = 0;                            // Reset tuning parameters
-	CSCTL0 = DCORSEL_4 + 0x3FF;      		 // Set DCO to 24MHz centre frequency
+	CSCTL0 = DCORSEL_4;      		 // Set DCO to 24MHz centre frequency
 											// (nominal, center of 16-32MHz range)
 											// Set DCOTUNE to 0x3FF to tune to 32 MHz
 	// Select ACLK = REFO, SMCLK = MCLK = DCO

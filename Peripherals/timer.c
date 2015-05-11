@@ -13,10 +13,10 @@
 
 
 void initTimer(void) {
-	TA1CCTL0 = CCIE;                       	// CCR0 interrupt enabled
-	TA1CCR1 = 100;							// 64 is 270k sampling
-	TA1CTL = TASSEL__SMCLK | MC__UP;   		// SMCLK, up mode
-	NVIC_ISER0 = 1 << ((INT_TA1_N - 16) & 31);
+	TA0CCTL0 = CCIE;                       	// CCR0 interrupt enabled
+	TA0CCR0 = 100;							// 64 is 270k sampling
+	TA0CTL = TASSEL__SMCLK | MC__UP;   		// SMCLK, up mode
+	NVIC_ISER0 = 1 << ((INT_TA0_0 - 16) & 31);
 
 	if (DEBUG)
 		sendStr("\n\n\r Timer Initialisation complete.");
@@ -29,21 +29,21 @@ void initTimer(void) {
 void TimerA0_0IsrHandler(void) {
 	TA0CCTL0 &= ~CCIFG;
 	//toggleLED();
-	//startConversion();
+	startConversion();
 
 }
 
 void TimerA1_0IsrHandler(void) {
 	TA1CCTL1 &= ~CCIFG;
-	//toggleLED();
-	startConversion();
+	toggleLED();
+	//startConversion();
 
 }
 
 
 void TimerA1_NIsrHandler(void) {
 	TA1CCTL1 &= ~CCIFG;
-	//toggleLED();
-	startConversion();
+	toggleLED();
+	//startConversion();
 
 }

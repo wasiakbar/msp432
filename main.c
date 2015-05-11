@@ -9,6 +9,7 @@
 #include "essential.h"
 
 #define ADC 1
+#define I2C 0
 #define TX 0
 #define MALLI 0
 
@@ -21,15 +22,26 @@ int main(void)
 	if (ADC) {
 		initClock();
 		initGPIO();
-		enablePower();
 
 		__enable_interrupt();
-		initUART();
 		initADC();
 		initTimer();
+
+
+		while(1);
+	}
+
+	if (I2C) {
+		initClock();
+		initGPIO();
+
+		__enable_interrupt();
 		initI2C();
 
-		sendStr("\n\n\r All initialisations complete.");
+		setCntl(1.5);
+		setClmp(1);
+
+		while(1);
 	}
 
 

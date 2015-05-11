@@ -60,7 +60,7 @@ extern unsigned long __STACK_END;
 
 extern void ADC14ISRHandler(void);
 extern void eUSCIA0IsrHandler(void);
-extern void eUSCIB0IsrHandler(void);
+extern void eUSCIB1IsrHandler(void);
 extern void TimerA0_0IsrHandler(void);
 extern void TimerA1_0IsrHandler(void);
 extern void TimerA1_NIsrHandler(void);
@@ -109,10 +109,10 @@ void (* const interruptVectors[])(void) =
     defaultISR,                             /* EUSCIA1 ISR               */
     defaultISR,                             /* EUSCIA2 ISR               */
     defaultISR,                             /* EUSCIA3 ISR               */
-	eUSCIB0IsrHandler,                      /* EUSCIB0 ISR               */
-    defaultISR,                             /* EUSCIB1 ISR               */
+	defaultISR,		                        /* EUSCIB0 ISR               */
+	eUSCIB1IsrHandler,                      /* EUSCIB1 ISR               */
     defaultISR,                             /* EUSCIB2 ISR               */
-    defaultISR,                             /* EUSCIB3 ISR               */
+	defaultISR,                             /* EUSCIB3 ISR               */
 	ADC14ISRHandler,                       	/* ADC14 ISR                 */
     defaultISR,                             /* T32_INT1 ISR              */
     defaultISR,                             /* T32_INT2 ISR              */
