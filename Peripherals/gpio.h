@@ -36,6 +36,7 @@ void ultraTX(uint8_t);
 
 #define toggleLED() P1OUT ^= BIT0
 #define toggleG1() P4OUT ^= BIT0
+#define toggleTX() P4OUT ^= BIT4
 
 //For power board
 #define enablePower() P5OUT &= ~BIT2

@@ -8,9 +8,9 @@
 
 #include "essential.h"
 
-#define ADC 1
+#define ADC 0
 #define I2C 0
-#define TX 0
+#define TX 1
 #define MALLI 0
 
 int main(void)
@@ -19,16 +19,26 @@ int main(void)
 	float x=0,y=1;
 	WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
 
+	data=(uint32_t*)malloc(BANK*sizeof(uint32_t));
+
+
 	if (ADC) {
 		initClock();
 		initGPIO();
+
+		initUART();
 
 		__enable_interrupt();
 		initADC();
 		initTimer();
 
+		ultraTX(10);
+		recordData();
+		for (i=0; i<BANK; ++i) {
+			sendStr(intToStr(data[i]));
+		}
 
-		while(1);
+
 	}
 
 	if (I2C) {
@@ -46,7 +56,10 @@ int main(void)
 
 
 	if (TX) {
+		initClock();
 		initGPIO();
+		initTimer();
+		initADC();
 		enablePower();
 
 		__enable_interrupt();
@@ -61,12 +74,15 @@ int main(void)
 		setCntl(2);
 
 		while(1) {
-			ultraTX(30);
-			__delay_cycles(30000);
+			ultraTX(10);
+			recordData();
+			for (j=0;j<4;++j)
+				__delay_cycles(30000);
 		}
 	}
 
 	if (MALLI) {
+		initClock();
 		initGPIO();
 		enablePower();
 
@@ -75,7 +91,7 @@ int main(void)
 
 		setBoost(11);
 		setBuck(5);
-		setLDO(4.5);
+		setLDO(4.2);
 		enableBoost();
 		enableBuck();
 		enableLDO();

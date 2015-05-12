@@ -13,6 +13,7 @@ main.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cmFunc.h
 main.obj: /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cm4_simd.h
 main.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/string.h
 main.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h
+main.obj: /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/stdlib.h
 main.obj: ../Peripherals/clock.h
 main.obj: ../Peripherals/../essential.h
 main.obj: ../Peripherals/gpio.h
@@ -34,6 +35,7 @@ main.obj: ../Peripherals/i2c.h
 /home/prachetverma/ti/ccsv6/ccs_base/arm/include/CMSIS/core_cm4_simd.h: 
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/string.h: 
 /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/linkage.h: 
+/home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2/include/stdlib.h: 
 ../Peripherals/clock.h: 
 ../Peripherals/../essential.h: 
 ../Peripherals/gpio.h: 

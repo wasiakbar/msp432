@@ -88,7 +88,7 @@ void setBoost(float volts) {
 	int i;
 	float Rset = (R1/((volts/1.229)-1))-R2;
 	UCB1I2CSA = pot12Addr;
-	TXData[0]=(Rset/R)*256;
+	TXData[0]=(1-Rset/R)*256;
 	TXData[1]=boostReg;
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
@@ -100,7 +100,7 @@ void setBuck(float volts) {
 	int i;
 	float Rset = (R1/((volts/0.5)-1))-R2;
 	UCB1I2CSA = pot4Addr;
-	TXData[0]=(Rset/R)*256;
+	TXData[0]=(1-Rset/R)*256;
 	TXData[1]=buckReg;
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
@@ -112,7 +112,7 @@ void setLDO(float volts) {
 	int i;
 	float Rset = (R1/((volts/1.182)-1))-R3;
 	UCB1I2CSA = pot4Addr;
-	TXData[0]=(Rset/R)*256;
+	TXData[0]=(1-Rset/R)*256;
 	TXData[1]=ldoReg;
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent

@@ -62,8 +62,6 @@ extern void ADC14ISRHandler(void);
 extern void eUSCIA0IsrHandler(void);
 extern void eUSCIB1IsrHandler(void);
 extern void TimerA0_0IsrHandler(void);
-extern void TimerA1_0IsrHandler(void);
-extern void TimerA1_NIsrHandler(void);
 
 
 /* Intrrupt vector table.  Note that the proper constructs must be placed on this to  */
@@ -97,10 +95,10 @@ void (* const interruptVectors[])(void) =
     defaultISR,                             /* FLCTL ISR                 */
     defaultISR,                             /* COMP0 ISR                 */
     defaultISR,                             /* COMP1 ISR                 */
-	TimerA0_0IsrHandler,                    /* TA0_0 ISR                 */
+	TimerA0_0IsrHandler,           			/* TA0_0 ISR                 */
     defaultISR,                             /* TA0_N ISR                 */
-	TimerA1_0IsrHandler,                             /* TA1_0 ISR                 */
-	TimerA1_NIsrHandler,                             /* TA1_N ISR                 */
+	defaultISR,                             /* TA1_0 ISR                 */
+	defaultISR,                             /* TA1_N ISR                 */
     defaultISR,                             /* TA2_0 ISR                 */
     defaultISR,                             /* TA2_N ISR                 */
     defaultISR,                             /* TA3_0 ISR                 */

@@ -14,6 +14,6 @@
 void initADC(void);
 
 //Usage
-inline void startConversion(void);
+void recordData(void);
 
 #endif /* PERIPHERALS_ADC_H_ */

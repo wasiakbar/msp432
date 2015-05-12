@@ -14,6 +14,7 @@
 
 #include "msp.h"
 #include <string.h>
+#include <stdlib.h>
 
 /*
  * Include user defined libraries
@@ -32,14 +33,21 @@
  */
 
 #define DEBUG 0
-
+#define BANK 200
 
 /*
  * Global variables definitions
  */
 
+uint32_t *data;
+uint16_t ctr;
+
+
+
 char str[8];
 uint32_t temp;
+uint16_t Ncyc;
+
 
 
 /*

@@ -34,11 +34,8 @@ void initGPIO(void) {
  */
 
 void ultraTX(uint8_t n) {
-	while (n--) {
-		setTX();
-		__delay_cycles(7);
-		unsetTX();
-		__delay_cycles(6);
-	}
+	TA0CCR0 = 37;
+	Ncyc=n*2;
+	while(Ncyc);
 }
 

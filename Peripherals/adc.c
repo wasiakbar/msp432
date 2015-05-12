@@ -10,7 +10,7 @@
 /*
  * 	 Initialise ADC on port 6
  * 	 Use pin P6.1
- * 	 Single conversion mode enabled
+ * 	 Single channel continuous conversion mode enabled
  */
 
 void initADC(void) {
@@ -20,25 +20,24 @@ void initADC(void) {
 	/* Initialize ADC14 */
 	NVIC_ISER0 = 1 << ((INT_ADC14 - 16) & 31);         // Enable ADC interrupt in NVIC module
 
-	ADC14CTL0 = ADC14SSEL__SMCLK | ADC14CONSEQ_0 | ADC14SHT1_0 | ADC14SHP | ADC14ON;          // Sampling time, S&H=16, ADC14 on
-	ADC14CTL1 = ADC14RES_3 | ADC14PWRMD_0;                   // Use sampling timer, 14-bit conversion results
+	ADC14CTL0 = ADC14SHS_3 | ADC14SSEL__SMCLK | ADC14CONSEQ_2 | ADC14ON;          // Sampling input from timer TA1CCR1, Sampling time equal to
+																				  // ON time of timer out, SMCLK, Continuous sampling on single channel,
+																				  // ADC14 on
+	ADC14CTL1 = ADC14RES_3 | ADC14PWRMD_0;                   					  // 14-bit conversion results, regular power mode (since 14bit)
 
 	ADC14MCTL0 |= ADC14INCH_14;                // A14 ADC input select; Vref=AVCC
 	ADC14IER0 |= ADC14IE0;                    // Enable ADC conv complete interrupt
-
-	ADC14CTL0 |= ADC14ENC;						//Enable ADC for conversion
 
 	if (DEBUG)
 		sendStr("\n\n\r ADC Initialisation complete.");
 
 }// End initADC function
 
-/*
- * Start a single conversion on ADC14
- */
-
-inline void startConversion(void) {
-	ADC14CTL0 |= ADC14SC;        // Start sampling/conversion
+void recordData(void) {
+	ctr=0;
+	ADC14CTL0 |= ADC14ENC;						//Enable ADC for conversion
+	TA1CCR0 = 120;
+	while(ctr<BANK);
 }
 
 /*
@@ -47,6 +46,12 @@ inline void startConversion(void) {
  */
 
 void ADC14ISRHandler(void) {
-	temp = ADC14MEM0;               // ADC12MEM0 = A1 > 0.5AVcc?
+	if (ctr<BANK)
+		data[ctr++]=ADC14MEM0;
+	else {
+		temp = ADC14MEM0;
+		TA1CCR0=0;
+		ADC14CTL0 &=~ ADC14ENC;
+	}
 	toggleLED();
 }
