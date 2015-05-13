@@ -8,100 +8,111 @@
 
 #include "essential.h"
 
-#define ADC 0
-#define I2C 0
-#define TX 1
-#define MALLI 0
-
 int main(void)
 {
 	int i,j;
-	float x=0,y=1;
 	WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
+
+	/*
+	 * Initialisation sequence.
+	 */
+
+	initClock();
+	initGPIO();
+
+	enablePower();
+	delayMillis(500);
+	setLED();
+
+	initUART();
+	initI2C();
+	initTimer();
+	initADC();
+
+	__enable_interrupt();
 
 	data=(uint32_t*)malloc(BANK*sizeof(uint32_t));
 
-
-	if (ADC) {
-		initClock();
-		initGPIO();
-
-		initUART();
-
-		__enable_interrupt();
-		initADC();
-		initTimer();
-
-		ultraTX(10);
-		recordData();
-		for (i=0; i<BANK; ++i) {
-			sendStr(intToStr(data[i]));
-		}
-
-
-	}
-
-	if (I2C) {
-		initClock();
-		initGPIO();
-
-		__enable_interrupt();
-		initI2C();
-
-		setCntl(1.5);
-		setClmp(1);
-
-		while(1);
-	}
-
-
-	if (TX) {
-		initClock();
-		initGPIO();
-		initTimer();
-		initADC();
-		enablePower();
-
-		__enable_interrupt();
-		initI2C();
-		unsetG1();
-		unsetG2();
-		setOE();
-
-		setG1();
-		setG2();
-		setClmp(2);
-		setCntl(2);
-
-		while(1) {
-			ultraTX(10);
-			recordData();
-			for (j=0;j<4;++j)
-				__delay_cycles(30000);
-		}
-	}
-
-	if (MALLI) {
-		initClock();
-		initGPIO();
-		enablePower();
-
-		__enable_interrupt();
-		initI2C();
-
-		setBoost(11);
-		setBuck(5);
-		setLDO(4.2);
-		enableBoost();
-		enableBuck();
-		enableLDO();
-
-		setLED();
-	}
-
 	if (DEBUG)
 		sendStr("\n\n\r All initialisations complete.");
-	while(1);
+
+	/*
+	 * Set up power supplies.
+	 */
+
+	setBoost(12);
+	setBuck(5.5);
+	setLDO(4.5);
+
+	enableBoost();
+	delayMillis(100);
+
+	enableBuck();
+	delayMillis(100);
+
+	enableLDO();
+	delayMillis(100);
+
+	if (DEBUG)
+		sendStr("\n\n\r Power supply setup complete.");
+
+
+	/*
+	 * Set up sensor board.
+	 */
+
+	setOE();
+
+	setG1();
+	setG2();
+	setClmp(2);
+	setCntl(2);
+
+
+	if (DEBUG)
+		sendStr("\n\n\r Sensor board setup complete.");
+
+	do {
+		sendStr("\n\n\r ***Press S1 to start conversion***");
+		while (P1IN & BIT1);
+		unsetLED();
+		ultraTX(10);
+		recordData();
+		sendStr("\n\n\r ***Press S2 to view data***");
+		while (P1IN & BIT4);
+		delayMillis(100);
+		sendStr("\n\n\n\n");
+		for (i=0; i<BANK/5; ++i) {
+			sendStr(intToStr(data[i]));
+		}
+		sendStr("\n\n\n\n");
+		while (P1IN & BIT4);
+		delayMillis(100);
+		for (; i<(BANK/5)*2; ++i) {
+			sendStr(intToStr(data[i]));
+		}
+		sendStr("\n\n\n\n");
+		while (P1IN & BIT4);
+		delayMillis(100);
+		for (; i<(BANK/5)*3; ++i) {
+			sendStr(intToStr(data[i]));
+		}
+		sendStr("\n\n\n\n");
+		while (P1IN & BIT4);
+		delayMillis(100);
+		for (; i<(BANK/5)*4; ++i) {
+			sendStr(intToStr(data[i]));
+		}
+		sendStr("\n\n\n\n");
+		while (P1IN & BIT4);
+		delayMillis(100);
+		for (; i<BANK; ++i) {
+			sendStr(intToStr(data[i]));
+		}
+		setLED();
+	} while (1);
+
+
 	__sleep();
 
 	__no_operation();                       // For debugger

@@ -32,8 +32,8 @@
  * Preprocessor definitions
  */
 
-#define DEBUG 0
-#define BANK 200
+#define DEBUG 1
+#define BANK 10000
 
 /*
  * Global variables definitions
@@ -61,5 +61,11 @@ uint16_t Ncyc;
 #define set(x, y) P##x##OUT |= BIT##y
 #define unset(x, y) P##x##OUT &= ~BIT##y
 #define toggle(x, y) P##x##OUT ^= BIT##y
+
+/*
+ * Additional functions
+ */
+void delayMillis(uint16_t T);
+
 
 #endif /* ESSENTIAL_H_ */

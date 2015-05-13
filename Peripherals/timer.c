@@ -22,7 +22,7 @@ void initTimer(void) {
 	 */
 
 	TA1CCTL1 = OUTMOD_3;                      // CCR1 reset/set
-	TA1CCR0 = 120;                         // PWM Period
+	//TA1CCR0 = 120;                         // PWM Period
 	TA1CCR1 = 60;                            // CCR1 PWM duty cycle
 	TA1CTL = TASSEL__SMCLK | MC__UP | TACLR;  // SMCLK, up mode, clear TAR
 

@@ -53,5 +53,5 @@ void ADC14ISRHandler(void) {
 		TA1CCR0=0;
 		ADC14CTL0 &=~ ADC14ENC;
 	}
-	toggleLED();
+	//toggleLED();
 }

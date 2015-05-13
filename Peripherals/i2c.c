@@ -45,7 +45,7 @@ void initI2C(void) {
 	UCB1IE |= UCTXIE0 | UCNACKIE;                     // transmit and NACK interrupt enable
 
 	if (DEBUG)
-		sendStr("\n\n\r I2CInitialisation complete.");
+		sendStr("\n\n\r I2C Initialisation complete.");
 }
 
 /*
@@ -64,6 +64,8 @@ void setClmp(float volts) {
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
+	if (DEBUG)
+			sendStr("\n\n\r Pot set for Vclmp.");
 	for (i=0; i<30000; i++);				//Delay
 	for (i=0; i<30000; i++);				//Delay
 }
@@ -80,6 +82,8 @@ void setCntl(float volts) {
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
+	if (DEBUG)
+		sendStr("\n\n\r Pot set for Vcntl.");
 	for (i=0; i<30000; i++)	;				//Delay
 	for (i=0; i<30000; i++);				//Delay
 }
@@ -93,6 +97,8 @@ void setBoost(float volts) {
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
+	if (DEBUG)
+		sendStr("\n\n\r Pot set for boost.");
 	for (i=0; i<30000; i++)	;				//Delay
 }
 
@@ -105,6 +111,8 @@ void setBuck(float volts) {
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
+	if (DEBUG)
+		sendStr("\n\n\r Pot set for buck.");
 	for (i=0; i<30000; i++)	;				//Delay
 }
 
@@ -117,6 +125,8 @@ void setLDO(float volts) {
 	TXByteCtr=2;
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
+	if (DEBUG)
+		sendStr("\n\n\r Pot set for ldo.");
 	for (i=0; i<30000; i++)	;				//Delay
 }
 /*

@@ -27,6 +27,15 @@ void initGPIO(void) {
 	P4DIR |= (BIT0 | BIT1 | BIT2 | BIT4);
 	P5DIR |= (BIT2 | BIT4 | BIT6 | BIT7);
 	P5OUT |= BIT7;							// Turn off sensor board LDO initially
+
+	/*
+	 * Initialise buttons
+	 */
+
+	P1OUT |= (BIT1 | BIT4);                          // Pull-up resistor on P1.1
+	P1REN |= (BIT1 | BIT4);                          // Select pull-up mode for P1.1
+	P1DIR &= ~(BIT1 | BIT4);                         // Set all but P1.1 to input direction
+
 }
 
 /*
