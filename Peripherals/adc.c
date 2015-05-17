@@ -29,7 +29,7 @@ void initADC(void) {
 	ADC14IER0 |= ADC14IE0;                    // Enable ADC conv complete interrupt
 
 	if (DEBUG)
-		sendStr("\n\n\r ADC Initialisation complete.");
+		sendStr(" ADC Initialisation complete.\n");
 
 }// End initADC function
 

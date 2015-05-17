@@ -22,6 +22,7 @@ Peripherals/clock.obj: ../Peripherals/../Peripherals/adc.h
 Peripherals/clock.obj: ../Peripherals/../Peripherals/uart.h
 Peripherals/clock.obj: ../Peripherals/../Peripherals/timer.h
 Peripherals/clock.obj: ../Peripherals/../Peripherals/i2c.h
+Peripherals/clock.obj: ../Peripherals/../compute.h
 
 ../Peripherals/clock.c: 
 ../Peripherals/clock.h: 
@@ -45,3 +46,4 @@ Peripherals/clock.obj: ../Peripherals/../Peripherals/i2c.h
 ../Peripherals/../Peripherals/uart.h: 
 ../Peripherals/../Peripherals/timer.h: 
 ../Peripherals/../Peripherals/i2c.h: 
+../Peripherals/../compute.h: 

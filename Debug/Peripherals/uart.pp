@@ -22,6 +22,7 @@ Peripherals/uart.obj: ../Peripherals/../Peripherals/adc.h
 Peripherals/uart.obj: ../Peripherals/../Peripherals/uart.h
 Peripherals/uart.obj: ../Peripherals/../Peripherals/timer.h
 Peripherals/uart.obj: ../Peripherals/../Peripherals/i2c.h
+Peripherals/uart.obj: ../Peripherals/../compute.h
 
 ../Peripherals/uart.c: 
 ../Peripherals/uart.h: 
@@ -45,3 +46,4 @@ Peripherals/uart.obj: ../Peripherals/../Peripherals/i2c.h
 ../Peripherals/../Peripherals/uart.h: 
 ../Peripherals/../Peripherals/timer.h: 
 ../Peripherals/../Peripherals/i2c.h: 
+../Peripherals/../compute.h: 

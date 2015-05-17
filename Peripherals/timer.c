@@ -40,7 +40,7 @@ void initTimer(void) {
 
 
 	if (DEBUG)
-		sendStr("\n\n\r Timer Initialisation complete.");
+		sendStr(" Timer Initialisation complete.\n");
 }
 
 /*
@@ -50,7 +50,10 @@ void initTimer(void) {
 void TimerA0_0IsrHandler(void) {
 	TA0CCTL0 &= ~CCIFG;
 	if (Ncyc--)
-		toggleTX();
+		if (txr==1)
+			toggleTX();
+		else
+			unsetTX();
 	else {
 		unsetTX();
 		TA0CCR0 = 0;

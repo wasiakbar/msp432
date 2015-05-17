@@ -18,6 +18,9 @@ void sendChar(char);
 void sendStr(char *);
 
 //Support
-char* intToStr(uint16_t);
+char* intToStr(uint32_t);
+
+//Interactive
+void executeCmd(void);
 
 #endif /* PERIPHERALS_UART_C_ */

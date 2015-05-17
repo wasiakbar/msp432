@@ -5,6 +5,7 @@
 CG_TOOL_ROOT := /home/prachetverma/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.2
 
 ORDERED_OBJS += \
+"./compute.obj" \
 "./essential.obj" \
 "./main.obj" \
 "./msp432_startup_ccs.obj" \
@@ -154,8 +155,8 @@ UltrasonicSensor.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "essential.pp" "main.pp" "msp432_startup_ccs.pp" "Peripherals/adc.pp" "Peripherals/clock.pp" "Peripherals/gpio.pp" "Peripherals/i2c.pp" "Peripherals/timer.pp" "Peripherals/uart.pp" 
-	-$(RM) "essential.obj" "main.obj" "msp432_startup_ccs.obj" "Peripherals/adc.obj" "Peripherals/clock.obj" "Peripherals/gpio.obj" "Peripherals/i2c.obj" "Peripherals/timer.obj" "Peripherals/uart.obj" 
+	-$(RM) "compute.pp" "essential.pp" "main.pp" "msp432_startup_ccs.pp" "Peripherals/adc.pp" "Peripherals/clock.pp" "Peripherals/gpio.pp" "Peripherals/i2c.pp" "Peripherals/timer.pp" "Peripherals/uart.pp" 
+	-$(RM) "compute.obj" "essential.obj" "main.obj" "msp432_startup_ccs.obj" "Peripherals/adc.obj" "Peripherals/clock.obj" "Peripherals/gpio.obj" "Peripherals/i2c.obj" "Peripherals/timer.obj" "Peripherals/uart.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

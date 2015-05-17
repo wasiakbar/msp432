@@ -58,10 +58,10 @@ extern unsigned long __STACK_END;
  * 	1. ADC14
  * */
 
-extern void ADC14ISRHandler(void);
-extern void eUSCIA0IsrHandler(void);
-extern void eUSCIB1IsrHandler(void);
-extern void TimerA0_0IsrHandler(void);
+extern void ADC14ISRHandler(void);			//ADC
+extern void eUSCIA0IsrHandler(void);		//UART
+extern void eUSCIB1IsrHandler(void);		//I2C
+extern void TimerA0_0IsrHandler(void);		//Timer for TX
 
 
 /* Intrrupt vector table.  Note that the proper constructs must be placed on this to  */

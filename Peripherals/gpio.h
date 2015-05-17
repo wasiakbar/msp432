@@ -15,6 +15,7 @@ void initGPIO(void);
 
 //Usage
 void ultraTX(uint8_t);
+void waitTX(uint8_t);
 
 /*
  * Hardcoding set and unset for

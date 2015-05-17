@@ -30,6 +30,9 @@ void initUART(void) {
 	UCA0CTLW0 &= ~UCSWRST;                  // Initialize eUSCI
 	UCA0IE |= UCRXIE;                       // Enable USCI_A0 RX interrupt
 
+	strcpy(cmd,"");
+	cmdPtr=0;
+
 
 	/* Baud Rate calculation
 	 * For future refernce. To be ignored since above uses ACLK at 32kHz
@@ -43,7 +46,7 @@ void initUART(void) {
 	 */
 
 	if (DEBUG)
-		sendStr("\n\n\r UART initialisation complete.");
+		sendStr(" UART initialisation complete.\n");
 }
 
 /*
@@ -71,15 +74,25 @@ void sendStr(char *p) {
  * 	Convert int to string. Covers unsinged range.
  */
 
-char* intToStr(uint16_t data) {
+char* intToStr(uint32_t data) {
 	unsigned char i=7;
-	strcpy(str,"        ");
+	strcpy(str,"        \n");
 	if (data==0) str[i]=48;
 	else while (data>0) {
 		str[i--]=(data%10)+48;
 		data/=10;
 	}
 	return str;
+}
+
+/*
+ * 	Execute command passed on serial
+ */
+
+void executeCmd() {
+	cmd[cmdPtr]='\0';
+	sendStr(" Here\n");
+	cmdPtr=0;
 }
 
 
@@ -90,10 +103,15 @@ char* intToStr(uint16_t data) {
 
 void eUSCIA0IsrHandler(void)
 {
-	if (UCA0IFG & UCRXIFG)
-	{
-		while(!(UCA0IFG&UCTXIFG));
-		UCA0TXBUF = UCA0RXBUF;
-	}
+    if (UCA0IFG & UCRXIFG)
+    {
+      while(!(UCA0IFG&UCTXIFG));
+      UCA0TXBUF = UCA0RXBUF;
+      __no_operation();
+    }
 }
+		/*if (UCA0RXBUF != 'A')
+			cmd[cmdPtr++]=UCA0RXBUF;
+		else
+			executeCmd();*/
 

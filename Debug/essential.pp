@@ -21,6 +21,7 @@ essential.obj: ../Peripherals/adc.h
 essential.obj: ../Peripherals/uart.h
 essential.obj: ../Peripherals/timer.h
 essential.obj: ../Peripherals/i2c.h
+essential.obj: ../compute.h
 
 ../essential.c: 
 ../essential.h: 
@@ -43,3 +44,4 @@ essential.obj: ../Peripherals/i2c.h
 ../Peripherals/uart.h: 
 ../Peripherals/timer.h: 
 ../Peripherals/i2c.h: 
+../compute.h: 

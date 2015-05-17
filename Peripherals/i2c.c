@@ -10,7 +10,7 @@
 uint8_t TXData[2];        // Pointer to TX data
 uint8_t TXByteCtr;
 
-const float VDD = 3.3;
+const float VDD = 4.5;
 const uint8_t R=100;
 const uint8_t R1=200;			//Kilo ohms
 const uint8_t R2=15;			//Kilo ohms
@@ -45,7 +45,7 @@ void initI2C(void) {
 	UCB1IE |= UCTXIE0 | UCNACKIE;                     // transmit and NACK interrupt enable
 
 	if (DEBUG)
-		sendStr("\n\n\r I2C Initialisation complete.");
+		sendStr(" I2C Initialisation complete.\n");
 }
 
 /*

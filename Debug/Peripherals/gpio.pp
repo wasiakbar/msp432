@@ -22,6 +22,7 @@ Peripherals/gpio.obj: ../Peripherals/../Peripherals/adc.h
 Peripherals/gpio.obj: ../Peripherals/../Peripherals/uart.h
 Peripherals/gpio.obj: ../Peripherals/../Peripherals/timer.h
 Peripherals/gpio.obj: ../Peripherals/../Peripherals/i2c.h
+Peripherals/gpio.obj: ../Peripherals/../compute.h
 
 ../Peripherals/gpio.c: 
 ../Peripherals/gpio.h: 
@@ -45,3 +46,4 @@ Peripherals/gpio.obj: ../Peripherals/../Peripherals/i2c.h
 ../Peripherals/../Peripherals/uart.h: 
 ../Peripherals/../Peripherals/timer.h: 
 ../Peripherals/../Peripherals/i2c.h: 
+../Peripherals/../compute.h: 

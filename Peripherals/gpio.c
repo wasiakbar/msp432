@@ -43,8 +43,19 @@ void initGPIO(void) {
  */
 
 void ultraTX(uint8_t n) {
+	txr=1;
 	TA0CCR0 = 37;
 	Ncyc=n*2;
 	while(Ncyc);
 }
 
+/*
+ *  Wait n cycles
+ */
+
+void waitTX(uint8_t n) {
+	txr=0;
+	TA0CCR0 = 37;
+	Ncyc=n*2;
+	while(Ncyc);
+}

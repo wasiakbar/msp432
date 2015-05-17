@@ -27,6 +27,8 @@
 #include "Peripherals/timer.h"
 #include "Peripherals/i2c.h"
 
+#include "compute.h"
+
 
 /*
  * Preprocessor definitions
@@ -34,6 +36,7 @@
 
 #define DEBUG 1
 #define BANK 10000
+#define VEC 550
 
 /*
  * Global variables definitions
@@ -42,13 +45,13 @@
 uint32_t *data;
 uint16_t ctr;
 
-
-
-char str[8];
+char str[12];
 uint32_t temp;
 uint16_t Ncyc;
+uint8_t txr;
 
-
+char cmd[20];
+uint8_t cmdPtr;
 
 /*
  * Preprocessor directives to make bitwise

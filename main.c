@@ -34,7 +34,7 @@ int main(void)
 	data=(uint32_t*)malloc(BANK*sizeof(uint32_t));
 
 	if (DEBUG)
-		sendStr("\n\n\r All initialisations complete.");
+		sendStr(" All initialisations complete.\n\n");
 
 	/*
 	 * Set up power supplies.
@@ -54,8 +54,7 @@ int main(void)
 	delayMillis(100);
 
 	if (DEBUG)
-		sendStr("\n\n\r Power supply setup complete.");
-
+		sendStr("Power supply setup complete.\n\n");
 
 	/*
 	 * Set up sensor board.
@@ -66,49 +65,44 @@ int main(void)
 	setG1();
 	setG2();
 	setClmp(2);
-	setCntl(2);
-
+	setCntl(2.4);
 
 	if (DEBUG)
-		sendStr("\n\n\r Sensor board setup complete.");
+		sendStr(" Sensor board setup complete.\n\n");
 
 	do {
-		sendStr("\n\n\r ***Press S1 to start conversion***");
+		sendStr(" ***Press S1 to start conversion***\n");
 		while (P1IN & BIT1);
 		unsetLED();
+
 		ultraTX(10);
+		ultraTX(10);
+		ultraTX(10);
+		ultraTX(10);
+		waitTX(10);
+		waitTX(10);
+		waitTX(10);
+		ultraTX(10);
+		ultraTX(10);
+		ultraTX(10);
+		ultraTX(10);
+
 		recordData();
-		sendStr("\n\n\r ***Press S2 to view data***");
+		/*sendStr(" Distance by simple max: \n");
+		sendStr(intToStr(getDistance()));*/
+		sendStr(" Correlating...\n");
+		correlate();
+		sendStr(" Distance by correlation: \n");
+		sendStr(intToStr((getDistance()+47)));
+
+		sendStr(" ***Press S2 to get raw data***\n");
 		while (P1IN & BIT4);
 		delayMillis(100);
-		sendStr("\n\n\n\n");
-		for (i=0; i<BANK/5; ++i) {
+		sendStr(" $$$\n");
+		for (i=0; i<BANK; ++i) {
 			sendStr(intToStr(data[i]));
 		}
-		sendStr("\n\n\n\n");
-		while (P1IN & BIT4);
-		delayMillis(100);
-		for (; i<(BANK/5)*2; ++i) {
-			sendStr(intToStr(data[i]));
-		}
-		sendStr("\n\n\n\n");
-		while (P1IN & BIT4);
-		delayMillis(100);
-		for (; i<(BANK/5)*3; ++i) {
-			sendStr(intToStr(data[i]));
-		}
-		sendStr("\n\n\n\n");
-		while (P1IN & BIT4);
-		delayMillis(100);
-		for (; i<(BANK/5)*4; ++i) {
-			sendStr(intToStr(data[i]));
-		}
-		sendStr("\n\n\n\n");
-		while (P1IN & BIT4);
-		delayMillis(100);
-		for (; i<BANK; ++i) {
-			sendStr(intToStr(data[i]));
-		}
+		sendStr(" $$$\n");
 		setLED();
 	} while (1);
 
