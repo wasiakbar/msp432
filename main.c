@@ -10,7 +10,6 @@
 
 int main(void)
 {
-	int i,j;
 	WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
 
 	/*
@@ -32,9 +31,16 @@ int main(void)
 	__enable_interrupt();
 
 	data=(uint32_t*)malloc(BANK*sizeof(uint32_t));
+	cycles=10;
+	nPat=3;
+	pattern[0]=4;
+	pattern[1]=3;
+	pattern[2]=4;
+	totCyc=11;
+	recording=0;
 
 	if (DEBUG)
-		sendStr(" All initialisations complete.\n\n");
+		sendStr(" All initialisations complete.\n");
 
 	/*
 	 * Set up power supplies.
@@ -54,7 +60,7 @@ int main(void)
 	delayMillis(100);
 
 	if (DEBUG)
-		sendStr("Power supply setup complete.\n\n");
+		sendStr(" Power supply setup complete.\n");
 
 	/*
 	 * Set up sensor board.
@@ -65,47 +71,18 @@ int main(void)
 	setG1();
 	setG2();
 	setClmp(2);
-	setCntl(2.4);
+	setCntl(2);
 
 	if (DEBUG)
-		sendStr(" Sensor board setup complete.\n\n");
+		sendStr(" Sensor board setup complete.\n");
 
-	do {
-		sendStr(" ***Press S1 to start conversion***\n");
-		while (P1IN & BIT1);
-		unsetLED();
-
-		ultraTX(10);
-		ultraTX(10);
-		ultraTX(10);
-		ultraTX(10);
-		waitTX(10);
-		waitTX(10);
-		waitTX(10);
-		ultraTX(10);
-		ultraTX(10);
-		ultraTX(10);
-		ultraTX(10);
-
-		recordData();
-		/*sendStr(" Distance by simple max: \n");
-		sendStr(intToStr(getDistance()));*/
-		sendStr(" Correlating...\n");
-		correlate();
-		sendStr(" Distance by correlation: \n");
-		sendStr(intToStr((getDistance()+47)));
-
-		sendStr(" ***Press S2 to get raw data***\n");
-		while (P1IN & BIT4);
-		delayMillis(100);
-		sendStr(" $$$\n");
-		for (i=0; i<BANK; ++i) {
-			sendStr(intToStr(data[i]));
-		}
-		sendStr(" $$$\n");
-		setLED();
-	} while (1);
-
+	while (1) {
+		flag=1;
+		sendStr(" %%%\n");
+		while (flag);
+		if (recording)
+			transaction();
+	}
 
 	__sleep();
 

@@ -14,6 +14,7 @@
  * Computation functions
  */
 
+void transaction(void);
 int getDistance(void);
 void movingAvg(uint8_t samples);
 void correlate(void);

@@ -21,11 +21,11 @@ void initUART(void) {
 
 	// Configure UART
 	UCA0CTLW0 |= UCSWRST;
-	UCA0CTLW0 |= UCSSEL__ACLK;             // Put eUSCI in reset
+	UCA0CTLW0 |= UCSSEL__SMCLK;             // Put eUSCI in reset
 	// Baud Rate set
-	UCA0BR0 = 3;
+	UCA0BR0 = 13;                           // 12000000/16/9600
 	UCA0BR1 = 0x00;
-	UCA0MCTLW = (0x92<<8);
+	UCA0MCTLW = (0x25<<8) | UCOS16;
 
 	UCA0CTLW0 &= ~UCSWRST;                  // Initialize eUSCI
 	UCA0IE |= UCRXIE;                       // Enable USCI_A0 RX interrupt
@@ -86,15 +86,87 @@ char* intToStr(uint32_t data) {
 }
 
 /*
+ * 	Convert string to int. Covers unsinged range for 32-bit.
+ */
+
+uint32_t strToInt(char *p) {
+	uint8_t i;
+	uint32_t r=0;
+	for (i=0; p[i]; ++i) {
+		r*=10;
+		r+=p[i]-48;
+	}
+	return r;
+}
+
+/*
  * 	Execute command passed on serial
  */
 
 void executeCmd() {
+	uint8_t j=0, argc=0;
+	uint32_t i;
+	char argv[3][20];
 	cmd[cmdPtr]='\0';
-	sendStr(" Here\n");
 	cmdPtr=0;
+	recording=0;
+	for (i=0; cmd[i]!='\0'; i++) {
+		if (cmd[i]==' ') {
+			argv[argc][j]='\0';
+			argc++;
+			j=0;
+		}
+		else
+			argv[argc][j++]=cmd[i];
+	}
+	argv[argc][j]='\0';
+
+	if (!(strcmp(argv[0],"pull"))) {
+		pushData();
+	}
+	else if (!(strcmp(argv[0],"setcycles"))) {
+		cycles=strToInt(argv[1]);
+		i=strToInt(argv[2]);
+		nPat=0;
+		totCyc=0;
+		while (i>0) {
+			pattern[nPat]=i%10;
+			totCyc+=pattern[nPat++];
+			i/=10;
+		}
+	}
+	else if (!(strcmp(argv[0],"correlate"))) {
+		correlate();
+	}
+	else if (!(strcmp(argv[0],"record"))) {
+		recording=1;
+	}
+	else if (!(strcmp(argv[0],"measure"))) {
+		sendStr(intToStr(getDistance()));
+	}
+	else if (!(strcmp(argv[0],"setcntl"))) {
+		setCntl((strToInt(argv[1]))/10.0);
+	}
+	else if (!(strcmp(argv[0],"setclmp"))) {
+		setClmp((strToInt(argv[1]))/10.0);
+	}
+	else if (!(strcmp(argv[0],"help")));
+	else
+		sendStr(" Invalid command.\n");
+
+	flag=0;
 }
 
+
+void pushData(void) {
+	uint16_t i;
+	sendStr(" $$$\n");
+	for (i=0; i<BANK; ++i) {
+		sendStr(intToStr(data[i]));
+	}
+	sendStr(" $$$\n");
+	sendStr(" Data transfer successful.\n");
+}
 
 /*
  * Interrupt Service Routine to read on UART
@@ -103,15 +175,13 @@ void executeCmd() {
 
 void eUSCIA0IsrHandler(void)
 {
-    if (UCA0IFG & UCRXIFG)
-    {
-      while(!(UCA0IFG&UCTXIFG));
-      UCA0TXBUF = UCA0RXBUF;
-      __no_operation();
-    }
-}
-		/*if (UCA0RXBUF != 'A')
+	if (UCA0IFG & UCRXIFG)
+	{
+		while(!(UCA0IFG&UCTXIFG));
+		if (UCA0RXBUF != '\n')
 			cmd[cmdPtr++]=UCA0RXBUF;
 		else
-			executeCmd();*/
+			executeCmd();
+	}
+}
 

@@ -10,7 +10,7 @@
 uint8_t TXData[2];        // Pointer to TX data
 uint8_t TXByteCtr;
 
-const float VDD = 4.5;
+const float VDD = 4.2;
 const uint8_t R=100;
 const uint8_t R1=200;			//Kilo ohms
 const uint8_t R2=15;			//Kilo ohms
@@ -65,7 +65,7 @@ void setClmp(float volts) {
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
 	if (DEBUG)
-			sendStr("\n\n\r Pot set for Vclmp.");
+			sendStr(" Pot set for Vclmp.\n");
 	for (i=0; i<30000; i++);				//Delay
 	for (i=0; i<30000; i++);				//Delay
 }
@@ -83,7 +83,7 @@ void setCntl(float volts) {
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
 	if (DEBUG)
-		sendStr("\n\n\r Pot set for Vcntl.");
+		sendStr(" Pot set for Vcntl.\n");
 	for (i=0; i<30000; i++)	;				//Delay
 	for (i=0; i<30000; i++);				//Delay
 }
@@ -98,7 +98,7 @@ void setBoost(float volts) {
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
 	if (DEBUG)
-		sendStr("\n\n\r Pot set for boost.");
+		sendStr(" Pot set for boost.\n");
 	for (i=0; i<30000; i++)	;				//Delay
 }
 
@@ -112,7 +112,7 @@ void setBuck(float volts) {
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
 	if (DEBUG)
-		sendStr("\n\n\r Pot set for buck.");
+		sendStr(" Pot set for buck.\n");
 	for (i=0; i<30000; i++)	;				//Delay
 }
 
@@ -126,7 +126,7 @@ void setLDO(float volts) {
 	while (UCB1CTLW0 & UCTXSTP);                      // Ensure stop condition got sent
 	UCB1CTLW0 |= UCTR | UCTXSTT;                      // I2C TX, start condition
 	if (DEBUG)
-		sendStr("\n\n\r Pot set for ldo.");
+		sendStr(" Pot set for ldo.\n");
 	for (i=0; i<30000; i++)	;				//Delay
 }
 /*

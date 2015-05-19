@@ -9,6 +9,8 @@
 #define PERIPHERALS_UART_C_
 
 #include "../essential.h"
+#include "timer.h"
+#include "adc.h"
 
 //Initialise
 void initUART(void);
@@ -19,8 +21,10 @@ void sendStr(char *);
 
 //Support
 char* intToStr(uint32_t);
+uint32_t strToInt(char *);
 
 //Interactive
 void executeCmd(void);
+void pushData(void);
 
 #endif /* PERIPHERALS_UART_C_ */
