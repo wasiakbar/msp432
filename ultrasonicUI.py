@@ -5,10 +5,10 @@ import threading
 
 """
 Escape sequences for this script:
-$$$		Data rcvd on serial enclosed in this will be written to file
+$		Data rcvd on serial enclosed in this will be written to file
 \n		Data being sent out must end with the new line character for it to be recognised
 		by the device
-%%%		The device is ready to receive the next command
+%		The device is ready to receive the next command
 
 """
 
@@ -36,9 +36,9 @@ def readSerial():
 	while (a!='\n'):
 		a=ser.read(1)
 		x+=a
-	if "%%%" in x:
+	if "%" in x:
 		thread.start_new_thread(writeSerial, ())
-	elif "$$$" in x:
+	elif "$" in x:
 		print "Transferring data to file "+outfile
 		f = open(outfile,'w')
 		while True:
@@ -47,7 +47,7 @@ def readSerial():
 			while (a!='\n'):
 				a=ser.read(1)
 				x+=a
-			if "$$$" in x:
+			if "$" in x:
 				f.close()
 				break
 			else:

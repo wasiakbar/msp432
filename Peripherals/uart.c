@@ -74,14 +74,21 @@ void sendStr(char *p) {
  * 	Convert int to string. Covers unsinged range.
  */
 
-char* intToStr(uint32_t data) {
-	unsigned char i=7;
+char* intToStr(int32_t data) {
+	uint8_t i=7;
+	uint8_t negFlag=0;
+	if (data<0) {
+		negFlag=1;
+		data*=-1;
+	}
 	strcpy(str,"        \n");
 	if (data==0) str[i]=48;
 	else while (data>0) {
 		str[i--]=(data%10)+48;
 		data/=10;
 	}
+	if (negFlag)
+		str[i]='-';
 	return str;
 }
 
@@ -110,6 +117,8 @@ void executeCmd() {
 	cmd[cmdPtr]='\0';
 	cmdPtr=0;
 	recording=0;
+	initialise=0;
+	reader=0;
 	for (i=0; cmd[i]!='\0'; i++) {
 		if (cmd[i]==' ') {
 			argv[argc][j]='\0';
@@ -124,31 +133,68 @@ void executeCmd() {
 	if (!(strcmp(argv[0],"pull"))) {
 		pushData();
 	}
+	else if (!(strcmp(argv[0],"START"))) {
+		setLED();
+		if (first==1) {
+			initialise=1;
+			first=0;
+		}
+		else
+			recording=1;
+	}
+	else if (!(strcmp(argv[0],"auto"))) {
+		if (strToInt(argv[1])) {
+			automatic=1;
+			sendStr(" Auto mode.\n");
+			initialise=1;
+		}
+		else {
+			automatic=0;
+			sendStr(" Manual mode.\n");
+		}
+	}
 	else if (!(strcmp(argv[0],"setcycles"))) {
-		cycles=strToInt(argv[1]);
-		i=strToInt(argv[2]);
-		nPat=0;
-		totCyc=0;
-		while (i>0) {
-			pattern[nPat]=i%10;
-			totCyc+=pattern[nPat++];
-			i/=10;
+		if (automatic)
+			sendStr(" Auto mode. Cannot edit.\n");
+		else {
+			setCycles(strToInt(argv[1]), strToInt(argv[2]));
 		}
 	}
 	else if (!(strcmp(argv[0],"correlate"))) {
-		correlate();
+		if (automatic)
+			sendStr(" Please switch to manual mode.\n");
+		else
+			correlate();
 	}
 	else if (!(strcmp(argv[0],"record"))) {
-		recording=1;
+		if (automatic)
+			sendStr(" Please switch to manual mode.\n");
+		else
+			recording=1;
 	}
 	else if (!(strcmp(argv[0],"measure"))) {
-		sendStr(intToStr(getDistance()));
+		if (automatic)
+			reader=1;
+		else
+			sendStr(intToStr(getDistance()));
 	}
 	else if (!(strcmp(argv[0],"setcntl"))) {
-		setCntl((strToInt(argv[1]))/10.0);
+		if (automatic)
+			sendStr(" Auto mode. Cannot edit.\n");
+		else
+			setCntl((strToInt(argv[1]))/10.0);
 	}
 	else if (!(strcmp(argv[0],"setclmp"))) {
-		setClmp((strToInt(argv[1]))/10.0);
+		if (automatic)
+			sendStr(" Auto mode. Cannot edit.\n");
+		else
+			setClmp((strToInt(argv[1]))/10.0);
+	}
+	else if (!(strcmp(argv[0],"setignore"))) {
+		if (automatic)
+			sendStr(" Auto mode. Cannot edit.\n");
+		else
+			ignore=(float)strToInt(argv[1])/0.085;
 	}
 	else if (!(strcmp(argv[0],"help")));
 	else
@@ -160,11 +206,11 @@ void executeCmd() {
 
 void pushData(void) {
 	uint16_t i;
-	sendStr(" $$$\n");
+	sendChar('$');
 	for (i=0; i<BANK; ++i) {
 		sendStr(intToStr(data[i]));
 	}
-	sendStr(" $$$\n");
+	sendChar('$');
 	sendStr(" Data transfer successful.\n");
 }
 

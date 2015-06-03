@@ -20,7 +20,8 @@ void transaction(void) {
 	}
 	ultraTX(cycles*pattern[0]);
 	recordData();
-	sendStr(" Data recorded succesfully.\n");
+	if (DEBUG)
+		sendStr(" Data recorded succesfully.\n");
 }
 /*
  * Get distance
@@ -28,7 +29,7 @@ void transaction(void) {
 
 int getDistance() {
 	int j, max;
-	for (max=1200, j=1200; j<BANK; j++) {		// 110 to ignore first 1m
+	for (max=j=ignore; j<BANK; j++) {		// 110 to ignore first 1m
 		if (data[max]<data[j])
 			max=j;
 	}
@@ -68,15 +69,93 @@ void movingAvg(uint8_t samples) {
 void correlate(void) {
 	uint16_t i, l;
 	int16_t j, k;
-	sendStr(" Correlating...\n");
+	if (DEBUG)
+		sendStr(" Correlating...\n");
 	VEC=5*cycles*totCyc;
 
 	for (i=0; i<BANK-VEC; ++i) {
 		l=0;
-		for (j=nPat-1; j>=0; j-=2)
+		for (j=nPat-1; j>=0; j--) {
 			for (k=0; k<pattern[j]*cycles*5; k++)
 				data[i]+=data[i+l++];
+			--j;
+			for (k=0; k<pattern[j]*cycles*5; k++)
+				data[i]-=data[i+l++];
+			//l+=pattern[j-1]*cycles*5;
+		}
 	}
+	//sendStr(intToStr(l));					//Use this line to check length of vector actually correlated with
+	if (DEBUG)
+		sendStr(" Complete.\n");
+}
 
-	sendStr(" Complete.\n");
+/*
+ * Set cycles for TX
+ */
+
+void setCycles(uint32_t c, uint32_t i) {
+	cycles=c;
+	nPat=0;
+	totCyc=0;
+	while (i>0) {
+		pattern[nPat]=i%10;
+		totCyc+=pattern[nPat++];
+		i/=10;
+	}
+	sendStr(" Cycles updated successfully.\n");
+}
+
+/*
+ * Look-up table for gain and cycles values.
+ */
+
+void setGain() {
+	if (prev<60) {
+		setCntl(0.8);
+		cycles=2;
+	}
+	else if (prev<120) {
+		setCntl(1);
+		cycles=2;
+	}
+	else if (prev<200) {
+		setCntl(1.2);
+		cycles=4;
+	}
+	else if (prev<300) {
+		setCntl(1.5);
+		cycles=4;
+	}
+	else if (prev<400) {
+		setCntl(1.6);
+		cycles=4;
+	}
+	else if (prev<500) {
+		setCntl(1.7);
+		cycles=6;
+	}
+	else if (prev<600) {
+		setCntl(1.9);
+		cycles=6;
+	}
+	else if (prev<700) {
+		setCntl(2.1);
+		cycles=6;
+	}
+	else if (prev<800) {
+		setCntl(2.2);
+		cycles=6;
+	}
+	else if (prev<900) {
+		setCntl(2.4);
+		cycles=6;
+	}
+	else {
+		setCntl(2.6);
+		cycles=10;
+	}
+	if (prev<300)
+		ignore=10/.085;
+	else
+		ignore=60/.085;
 }

@@ -20,7 +20,7 @@ void sendChar(char);
 void sendStr(char *);
 
 //Support
-char* intToStr(uint32_t);
+char* intToStr(int32_t);
 uint32_t strToInt(char *);
 
 //Interactive

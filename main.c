@@ -21,7 +21,7 @@ int main(void)
 
 	enablePower();
 	delayMillis(500);
-	setLED();
+	unsetLED();
 
 	initUART();
 	initI2C();
@@ -30,14 +30,21 @@ int main(void)
 
 	__enable_interrupt();
 
-	data=(uint32_t*)malloc(BANK*sizeof(uint32_t));
-	cycles=10;
+	data=(int32_t*)malloc(BANK*sizeof(int32_t));
+	cycles=6;
 	nPat=3;
-	pattern[0]=4;
-	pattern[1]=3;
-	pattern[2]=4;
-	totCyc=11;
+	pattern[0]=1;
+	pattern[1]=1;
+	pattern[2]=3;
+	totCyc=5;
 	recording=0;
+	initialise=0;
+	ignore=60/.085;
+	automatic=0;
+	distance=0;
+	reader=0;
+	prev=0;
+	first=1;
 
 	if (DEBUG)
 		sendStr(" All initialisations complete.\n");
@@ -48,7 +55,7 @@ int main(void)
 
 	setBoost(12);
 	setBuck(5.5);
-	setLDO(4.5);
+	setLDO(4.9);
 
 	enableBoost();
 	delayMillis(100);
@@ -76,12 +83,94 @@ int main(void)
 	if (DEBUG)
 		sendStr(" Sensor board setup complete.\n");
 
+	temp=100;
 	while (1) {
+		uint8_t tracker=1;
 		flag=1;
-		sendStr(" %%%\n");
+		sendChar('%');
 		while (flag);
-		if (recording)
+		if (recording) {
 			transaction();
+		}
+		else if (initialise) {
+			setCntl(1.7);
+			cycles=6;
+			transaction();
+			correlate();
+			prev=getDistance();
+			transaction();
+			correlate();
+			distance=getDistance();
+			do {
+				if (DEBUG) {
+					sendStr(" Iteration: ");
+					sendStr(intToStr(tracker++));
+					sendChar('\n');
+				}
+				if (abs(prev-distance)<60)
+					setGain();
+				else if (prev<500 && distance<500) {
+					setCntl(1.4);
+					cycles=4;
+				}
+				else if (tracker>2) {
+					setCntl(2.6);
+					cycles=10;
+				}
+				else {
+					setCntl(2.2);
+					cycles=6;
+				}
+				transaction();
+				correlate();
+				prev=getDistance();
+				transaction();
+				correlate();
+				distance=getDistance();
+			} while (!(abs(prev-distance)<15));
+			setGain();
+			transaction();
+			correlate();
+			prev=getDistance();
+			if (DEBUG) {
+				sendStr(" Found initialisation point at: ");
+				sendStr(intToStr(prev));
+				sendChar('\n');
+			}
+			unsetLED();
+		}
+		else if (reader) {
+			setGain();
+			transaction();
+			correlate();
+			distance=getDistance();
+			if (abs(prev-distance)<30) {
+				prev = distance;
+				sendStr(intToStr(prev));
+			}
+			else {
+				uint16_t temp;
+				transaction();
+				correlate();
+				temp=getDistance();
+				if (abs(distance-prev)<80) {
+					if (abs(temp-prev)<abs(distance-prev))
+						prev=temp;
+					else
+						prev=distance;
+					sendStr(intToStr(prev));
+				}
+				else if (abs(temp-prev)<80) {
+					prev=temp;
+					sendStr(intToStr(prev));
+				}
+				else {
+					if (DEBUG)
+						sendStr(" Reinitialisation required\n");
+				}
+			}
+			unsetLED();
+		}
 	}
 
 	__sleep();

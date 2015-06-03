@@ -35,7 +35,8 @@
  */
 
 #define DEBUG 1
-#define BANK 10000
+//#define PRATIK 0
+#define BANK 13600
 
 /*
  * Global variables definitions
@@ -43,10 +44,18 @@
 
 uint16_t VEC;
 
-uint32_t *data;
+int32_t *data;
 uint16_t ctr;
 
 uint8_t flag;
+
+uint16_t ignore;
+uint8_t automatic;
+
+int16_t distance;
+int16_t prev;
+
+uint8_t first;
 
 char str[12];
 uint32_t temp;
@@ -62,6 +71,8 @@ uint8_t nPat;
 uint8_t pattern[7];
 
 uint8_t recording;
+uint8_t initialise;
+uint8_t reader;
 
 
 /*

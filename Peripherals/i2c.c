@@ -10,7 +10,7 @@
 uint8_t TXData[2];        // Pointer to TX data
 uint8_t TXByteCtr;
 
-const float VDD = 4.2;
+const float VDD = 4.9;
 const uint8_t R=100;
 const uint8_t R1=200;			//Kilo ohms
 const uint8_t R2=15;			//Kilo ohms
