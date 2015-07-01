@@ -21,7 +21,7 @@ int main(void)
 
 	enablePower();
 	delayMillis(500);
-	unsetLED();
+	setLED();
 
 	initUART();
 	initI2C();

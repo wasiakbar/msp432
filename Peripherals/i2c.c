@@ -39,8 +39,8 @@ void initI2C(void) {
 
 	// Configure USCI_B3 for I2C mode
 	UCB1CTLW0 |= UCSWRST;                             // put eUSCI_B in reset state
-	UCB1CTLW0 |= UCMODE_3 | UCMST | UCSSEL__ACLK;		// I2C master mode, ACLK
-	UCB1BRW = 24;                                 // baudrate = SMCLK /24
+	UCB1CTLW0 |= UCMODE_3 | UCMST | UCSSEL__SMCLK;		// I2C master mode, ACLK
+	UCB1BRW = 240;                                 // baudrate = SMCLK /24
 	UCB1CTLW0 &=~ UCSWRST;                            // clear reset register
 	UCB1IE |= UCTXIE0 | UCNACKIE;                     // transmit and NACK interrupt enable
 

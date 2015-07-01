@@ -148,7 +148,7 @@ void setGain() {
 	}
 	else if (prev<900) {
 		setCntl(2.4);
-		cycles=6;
+		cycles=8;
 	}
 	else {
 		setCntl(2.6);

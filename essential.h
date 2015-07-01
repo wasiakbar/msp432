@@ -37,6 +37,7 @@
 #define DEBUG 1
 //#define PRATIK 0
 #define BANK 13600
+#define MALLI 1
 
 /*
  * Global variables definitions
@@ -61,6 +62,8 @@ char str[12];
 uint32_t temp;
 uint16_t Ncyc;
 uint8_t txr;
+
+uint8_t count;
 
 char cmd[20];
 uint8_t cmdPtr;
